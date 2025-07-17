@@ -6,46 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área Administrativa - Logística</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/Favicon.svg" type="image/x-icon">
 </head>
 
 <body>
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    fetch('../components/navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-placeholder').innerHTML = data;
-        });
-    fetch('../components/footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-        });
-    });
-    </script>
-    
     <div id="navbar-placeholder"></div>
-    <main class="admin-dashboard">
-        <aside class="sidebar">
-            <h2>Módulos</h2>
-            <ul>
-                <li><a href="#" data-module="clientes">Clientes</a></li>
-                <li><a href="#" data-module="encomendas">Encomendas</a></li>
-                <li><a href="#" data-module="rotas">Rotas de Entrega</a></li>
-                <li><a href="#" data-module="entregas">Entregas</a></li>
-                <li><a href="#" data-module="centros">Centros de Distribuição</a></li>
-            </ul>
-        </aside>
-        <section class="content-area">
-            <div id="module-content">
-                <h2>Selecione um módulo para gerenciar</h2>
-            </div>
-        </section>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('../components/navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-placeholder').innerHTML = data;
+                });
+            fetch('../components/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                });
+        });
+    </script>
+
+    <div id="admin-app">
+        <main class="admin-dashboard">
+            <aside class="sidebar">
+                <h2>Módulos</h2>
+                <ul>
+                    <li><a href="#" @click.prevent="selectModule('clientes')"
+                            :class="{ active: currentModule === 'clientes' }">Clientes</a></li>
+                    <li><a href="#" @click.prevent="selectModule('encomendas')"
+                            :class="{ active: currentModule === 'encomendas' }">Encomendas</a></li>
+                    <li><a href="#" @click.prevent="selectModule('rotas')"
+                            :class="{ active: currentModule === 'rotas' }">Rotas de Entrega</a></li>
+                    <li><a href="#" @click.prevent="selectModule('entregas')"
+                            :class="{ active: currentModule === 'entregas' }">Entregas</a></li>
+                    <li><a href="#" @click.prevent="selectModule('centros')"
+                            :class="{ active: currentModule === 'centros' }">Centros de Distribuição</a></li>
+                </ul>
+            </aside>
+            <section class="content-area">
+                <component :is="currentModuleComponent"></component>
+    </div>
+    </section>
     </main>
+    </div>
     <div id="footer-placeholder"></div>
 
-    <script src="js/admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script type="module" src="js/admin-vue.js"></script>
 </body>
 
 </html>
-
